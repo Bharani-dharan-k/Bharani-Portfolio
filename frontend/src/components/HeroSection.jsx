@@ -43,6 +43,7 @@ export const HeroSection = () => {
             <img
               src={viteImg}  
               alt="Bharanidharan Kumaresan"
+              loading="lazy" // <-- Lazy loading added here
               className="w-40 h-40 md:w-64 md:h-64 rounded-full shadow-lg border-4 border-primary opacity-0 animate-fade-in-delay-2"
             />
           </div>
