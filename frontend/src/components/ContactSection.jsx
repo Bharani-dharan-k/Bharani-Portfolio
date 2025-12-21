@@ -24,7 +24,7 @@ export const ContactSection = () => {
   
   // Send directly to Web3Forms (no backend needed)
   const data = {
-    access_key: "YOUR_WEB3FORMS_ACCESS_KEY", // Replace with your actual key
+    access_key: "1518c40f-052a-4368-8dda-a4118d69b30a",
     name: formData.get("name"),
     email: formData.get("email"),
     message: formData.get("message"),
