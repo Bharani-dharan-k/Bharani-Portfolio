@@ -9,38 +9,31 @@ exports.sendContactEmail = async (req, res) => {
     return res.status(400).json({ message: "All fields are required." });
   }
 
-  // Check if environment variables are set
-  if (!process.env.GMAIL_USER || !process.env.GMAIL_PASS || !process.env.TO_EMAIL) {
-    console.error("Missing environment variables:", {
-      GMAIL_USER: !!process.env.GMAIL_USER,
-      GMAIL_PASS: !!process.env.GMAIL_PASS,
-      TO_EMAIL: !!process.env.TO_EMAIL
-    });
-    return res.status(500).json({ message: "Server configuration error. Please contact the administrator." });
-  }
-
   try {
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_PASS,
+    // Use Web3Forms API instead of SMTP
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
+      body: JSON.stringify({
+        access_key: process.env.WEB3FORMS_ACCESS_KEY,
+        name: name,
+        email: email,
+        message: message,
+        subject: "New Contact Message from Portfolio"
+      }),
     });
 
-    console.log("Attempting to send email from:", process.env.GMAIL_USER);
+    const result = await response.json();
 
-    await transporter.sendMail({
-      from: `"${name}" <${email}>`,
-      to: process.env.TO_EMAIL,
-      subject: "New Contact Message from Portfolio",
-      html: `<p><strong>Name:</strong> ${name}</p>
-             <p><strong>Email:</strong> ${email}</p>
-             <p><strong>Message:</strong><br>${message}</p>`,
-    });
-
-    console.log("Email sent successfully!");
-    res.status(200).json({ message: "Message sent successfully!" });
+    if (result.success) {
+      console.log("Email sent successfully via Web3Forms");
+      res.status(200).json({ message: "Message sent successfully!" });
+    } else {
+      console.error("Web3Forms error:", result);
+      res.status(500).json({ message: "Failed to send message." });
+    }
   } catch (error) {
     console.error("Email send error:", error);
     res.status(500).json({ 
