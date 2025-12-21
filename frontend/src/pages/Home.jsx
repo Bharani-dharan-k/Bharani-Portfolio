@@ -3,6 +3,7 @@ import { Navbar } from "../components/Navbar";
 import { ThemeToggle } from "../components/ThemeToggle";
 import { StarBackground } from "@/components/StarBackground";
 import { HeroSection } from "../components/HeroSection";
+import LazySection from "../components/LazySection";
 
 // Lazy load sections that are below the fold
 const AboutSection = lazy(() => import("../components/AboutSection"));
@@ -25,19 +26,44 @@ const Home = () => {
       {/* Main Content */}
       <main>
         <HeroSection />
-        <Suspense fallback={<div className="min-h-[50vh]"></div>}>
-          <AboutSection />
-          <SkillsSection />
-          <AchievementsSection />
-          <ProjectsSection />
-          <ContactSection />
-        </Suspense>
+        
+        <LazySection animation="fade-up">
+          <Suspense fallback={<div className="min-h-[50vh]"></div>}>
+            <AboutSection />
+          </Suspense>
+        </LazySection>
+
+        <LazySection animation="fade-up">
+          <Suspense fallback={<div className="min-h-[50vh]"></div>}>
+            <SkillsSection />
+          </Suspense>
+        </LazySection>
+
+        <LazySection animation="zoom">
+          <Suspense fallback={<div className="min-h-[50vh]"></div>}>
+            <AchievementsSection />
+          </Suspense>
+        </LazySection>
+
+        <LazySection animation="fade-up">
+          <Suspense fallback={<div className="min-h-[50vh]"></div>}>
+            <ProjectsSection />
+          </Suspense>
+        </LazySection>
+
+        <LazySection animation="fade-up">
+          <Suspense fallback={<div className="min-h-[50vh]"></div>}>
+            <ContactSection />
+          </Suspense>
+        </LazySection>
       </main>
 
       {/* Footer */}
-      <Suspense fallback={<div className="h-20"></div>}>
-        <Footer />
-      </Suspense>
+      <LazySection>
+        <Suspense fallback={<div className="h-20"></div>}>
+          <Footer />
+        </Suspense>
+      </LazySection>
     </div>
   );
 };

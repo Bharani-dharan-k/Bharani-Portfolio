@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster } from "@/components/ui/toaster";
 import ClickSpark from "@/components/ClickSpark";
@@ -7,7 +7,59 @@ import ClickSpark from "@/components/ClickSpark";
 const Home = lazy(() => import("./pages/Home"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
+// Loading component with minimum 2 seconds display
+const LoadingScreen = () => {
+  const [show, setShow] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShow(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!show) return null;
+
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-50 via-white to-gray-100">
+      <div className="text-center space-y-6">
+        <div className="animate-pulse">
+          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-purple-700 bg-clip-text text-transparent">
+            Welcome to
+          </h1>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mt-2">
+            Bharanidharan Portfolio
+          </h2>
+        </div>
+        <div className="flex justify-center space-x-2">
+          <div className="w-3 h-3 bg-purple-600 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+          <div className="w-3 h-3 bg-pink-600 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+          <div className="w-3 h-3 bg-purple-700 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return (
+      <>
+        <Toaster />
+        <LoadingScreen />
+      </>
+    );
+  }
+
   return (
     <>
       <Toaster />
@@ -21,7 +73,7 @@ function App() {
         <BrowserRouter>
           <Suspense fallback={
             <div className="min-h-screen flex items-center justify-center bg-background">
-              <div className="animate-pulse text-xl">Loading...</div>
+              <div className="animate-pulse text-xl">Welcome to Bharanidharan Portfolio</div>
             </div>
           }>
             <Routes>

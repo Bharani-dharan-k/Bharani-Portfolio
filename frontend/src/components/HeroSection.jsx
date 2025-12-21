@@ -45,14 +45,14 @@ export const HeroSection = () => {
           </div>
 
           {/* Right: Image Section */}
-          <div className="flex-1 flex justify-center">
+          <div className="flex-1 flex justify-center opacity-0 animate-fade-in-delay-2">
             <img
               src={viteImg}  
               alt="Bharanidharan Kumaresan"
               loading="eager"
               fetchpriority="high"
               decoding="async"
-              className="w-40 h-40 md:w-64 md:h-64 rounded-full shadow-lg border-4 border-primary opacity-0 animate-fade-in-delay-2"
+              className="w-40 h-40 md:w-64 md:h-64 rounded-full shadow-lg border-4 border-primary animate-float"
             />
           </div>
         </div>
