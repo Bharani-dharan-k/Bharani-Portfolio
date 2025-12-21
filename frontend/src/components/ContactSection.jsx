@@ -84,26 +84,26 @@ export const ContactSection = () => {
             </h3>
 
             <div className="space-y-6">
-              <div className="flex items-start space-x-3 sm:space-x-4">
-                <div className="p-3 rounded-full bg-primary/10">
-                  <Mail className="h-6 w-6 text-primary" />{" "}
+              <div className="flex items-center space-x-4">
+                <div className="p-3 rounded-full bg-primary/10 flex-shrink-0">
+                  <Mail className="h-6 w-6 text-primary" />
                 </div>
-                <div>
-                  <h4 className="font-medium"> Email</h4>
+                <div className="flex-1">
+                  <h4 className="font-medium">Email</h4>
                   <a
                     href="mailto:bharanikumaresan15@gmail.com"
-                    className="text-muted-foreground hover:text-primary transition-colors"
+                    className="text-muted-foreground hover:text-primary transition-colors break-all"
                   >
                     bharanikumaresan15@gmail.com
                   </a>
                 </div>
               </div>
-              <div className="flex items-start space-x-4">
-                <div className="p-3 rounded-full bg-primary/10">
-                  <Phone className="h-6 w-6 text-primary" />{" "}
+              <div className="flex items-center space-x-4">
+                <div className="p-3 rounded-full bg-primary/10 flex-shrink-0">
+                  <Phone className="h-6 w-6 text-primary" />
                 </div>
-                <div>
-                  <h4 className="font-medium"> Phone</h4>
+                <div className="flex-1">
+                  <h4 className="font-medium">Phone</h4>
                   <a
                     href="tel:+919942587785"
                     className="text-muted-foreground hover:text-primary transition-colors"
@@ -112,15 +112,15 @@ export const ContactSection = () => {
                   </a>
                 </div>
               </div>
-              <div className="flex items-start space-x-4">
-                <div className="p-3 rounded-full bg-primary/10">
-                  <MapPin className="h-6 w-6 text-primary" />{" "}
+              <div className="flex items-center space-x-4">
+                <div className="p-3 rounded-full bg-primary/10 flex-shrink-0">
+                  <MapPin className="h-6 w-6 text-primary" />
                 </div>
-                <div>
-                  <h4 className="font-medium"> Location</h4>
-                  <a className="text-muted-foreground hover:text-primary transition-colors">
-                    Erode,Tamil Nadu, India
-                  </a>
+                <div className="flex-1">
+                  <h4 className="font-medium">Location</h4>
+                  <p className="text-muted-foreground">
+                    Erode, Tamil Nadu, India
+                  </p>
                 </div>
               </div>
             </div>
@@ -153,7 +153,6 @@ export const ContactSection = () => {
                   htmlFor="name"
                   className="block text-sm font-medium mb-2"
                 >
-                  {" "}
                   Your Name
                 </label>
                 <input
@@ -161,7 +160,7 @@ export const ContactSection = () => {
                   id="name"
                   name="name"
                   required
-                  className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden foucs:ring-2 focus:ring-primary"
+                  className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground focus:outline-hidden focus:ring-2 focus:ring-primary placeholder:text-muted-foreground"
                   placeholder="Bharanidharan..."
                 />
               </div>
@@ -171,7 +170,6 @@ export const ContactSection = () => {
                   htmlFor="email"
                   className="block text-sm font-medium mb-2"
                 >
-                  {" "}
                   Your Email
                 </label>
                 <input
@@ -179,7 +177,7 @@ export const ContactSection = () => {
                   id="email"
                   name="email"
                   required
-                  className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden foucs:ring-2 focus:ring-primary"
+                  className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground focus:outline-hidden focus:ring-2 focus:ring-primary placeholder:text-muted-foreground"
                   placeholder="bharani@gmail.com"
                 />
               </div>
@@ -189,14 +187,13 @@ export const ContactSection = () => {
                   htmlFor="message"
                   className="block text-sm font-medium mb-2"
                 >
-                  {" "}
                   Your Message
                 </label>
                 <textarea
                   id="message"
                   name="message"
                   required
-                  className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden foucs:ring-2 focus:ring-primary resize-none"
+                  className="w-full px-4 py-3 rounded-md border border-input bg-background text-foreground focus:outline-hidden focus:ring-2 focus:ring-primary resize-none placeholder:text-muted-foreground"
                   placeholder="Hello, I'd like to talk about..."
                 />
               </div>

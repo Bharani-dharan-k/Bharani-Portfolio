@@ -53,15 +53,11 @@ const LazySection = ({ children, fallback = <div className="min-h-[50vh]"></div>
 
   return (
     <div ref={sectionRef}>
-      {isVisible ? (
-        <div
-          className={`transition-all duration-700 ease-out ${getAnimationClass()}`}
-        >
-          {children}
-        </div>
-      ) : (
-        fallback
-      )}
+      <div
+        className={`transition-all duration-700 ease-out ${getAnimationClass()}`}
+      >
+        {children}
+      </div>
     </div>
   );
 };

@@ -1,6 +1,4 @@
 import { ArrowRight, ExternalLink, Github } from "lucide-react";
-import ElectricBorder from "./ElectricBorder";
-import { useEffect, useState } from "react";
 
 const projects = [
   {
@@ -32,25 +30,38 @@ const projects = [
     demoUrl: "#",
     githubUrl: "https://github.com/Bharani-dharan-k/Agri-Market",
   },
+  {
+    id: 4,
+    title: "Portfolio Website",
+    description:
+      "A personal portfolio website to showcase projects and skills, built with React and Tailwind CSS.",
+    image: "/projects/project4.png",
+    tags: ["React", "Tailwind CSS"],
+    demoUrl: "https://bharani-portfolio.vercel.app/",
+    githubUrl: "https://github.com/Bharani-dharan-k/Bharani-Portfolio",
+  },
+  {
+    id: 5,
+    title: "Quick Juice",
+    description:
+      "A juice ordering web application that allows users to customize and order fresh juices online, built with MERN Stack.",
+    image: "/projects/project5.png",
+    tags: ["MERN Stack", "Express", "MongoDB"],
+    demoUrl: "https://quickjuice-frontend.onrender.com/",
+    githubUrl: "https://github.com/Bharani-dharan-k/-QuickJuice",
+  },
+  {
+    id: 6,
+    title: "Civic Management System ",
+    description: "A comprehensive system for managing civic services and resources, built with React and Node.js.",
+    image: "/projects/project6.png",
+    tags: ["React", "Node.js", "Express"],
+    demoUrl: "#",
+    githubUrl: "https://github.com/Bharani-dharan-k/civic-main",
+  },
 ];
 
-export const ProjectsSection = () => {  const [borderColor, setBorderColor] = useState("#ffffff");
-
-  useEffect(() => {
-    const updateColor = () => {
-      const isDark = document.documentElement.classList.contains("dark");
-      setBorderColor(isDark ? "#ffffff" : "#a78bfa");
-    };
-
-    updateColor();
-    const observer = new MutationObserver(updateColor);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-
-    return () => observer.disconnect();
-  }, []);
+export const ProjectsSection = () => {
   return (
     <section id="projects" className="py-24 px-4 relative">
       <div className="container mx-auto max-w-5xl">
@@ -66,15 +77,7 @@ export const ProjectsSection = () => {  const [borderColor, setBorderColor] = us
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project) => (
-            <ElectricBorder
-              key={project.id}
-              color={borderColor}
-              speed={0.8}
-              chaos={0.4}
-              thickness={2}
-              style={{ borderRadius: 8, height: '100%', minHeight: '450px' }}
-            >
-              <div className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover h-full flex flex-col">
+              <div key={project.id} className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover h-full flex flex-col border border-border">
               <div className="h-48 overflow-hidden flex-shrink-0">
                 <img
                   src={project.image}
@@ -118,7 +121,6 @@ export const ProjectsSection = () => {  const [borderColor, setBorderColor] = us
                 </div>
               </div>
             </div>
-            </ElectricBorder>
           ))}
         </div>
 

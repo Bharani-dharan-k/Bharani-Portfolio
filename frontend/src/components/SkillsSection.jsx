@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
-import ElectricBorder from "./ElectricBorder";
 
 const skills = [
   // Frontend
@@ -27,23 +26,6 @@ const categories = ["all", "frontend", "backend", "tools"];
 
 export const SkillsSection = () => {
   const [activeCategory, setActiveCategory] = useState("all");
-  const [borderColor, setBorderColor] = useState("#ffffff");
-
-  useEffect(() => {
-    const updateColor = () => {
-      const isDark = document.documentElement.classList.contains("dark");
-      setBorderColor(isDark ? "#ffffff" : "#a78bfa");
-    };
-
-    updateColor();
-    const observer = new MutationObserver(updateColor);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-
-    return () => observer.disconnect();
-  }, []);
 
   const filteredSkills = skills.filter(
     (skill) => activeCategory === "all" || skill.category === activeCategory
@@ -74,15 +56,7 @@ export const SkillsSection = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredSkills.map((skill, key) => (
-            <ElectricBorder
-              key={key}
-              color={borderColor}
-              speed={0.8}
-              chaos={0.4}
-              thickness={2}
-              style={{ borderRadius: 8 }}
-            >
-              <div className="bg-card p-6 rounded-lg shadow-xs card-hover">
+              <div key={key} className="bg-card p-6 rounded-lg shadow-xs card-hover border border-border">
               <div className="text-left mb-4">
                 <h3 className="font-semibold text-lg"> {skill.name}</h3>
               </div>
@@ -99,7 +73,6 @@ export const SkillsSection = () => {
                 </span>
               </div>
             </div>
-            </ElectricBorder>
           ))}
         </div>
       </div>
