@@ -67,3 +67,19 @@
   opacity: 0.3;
   background: linear-gradient(-30deg, var(--electric-light-color), transparent, var(--electric-border-color));
 }
+
+/* Hide electric effects on mobile devices */
+@media (max-width: 768px) {
+  .eb-stroke,
+  .eb-glow-1,
+  .eb-glow-2,
+  .eb-overlay-1,
+  .eb-overlay-2,
+  .eb-background-glow {
+    display: none;
+  }
+  
+  .eb-layers {
+    display: none;
+  }
+}
