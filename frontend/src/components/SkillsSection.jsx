@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import ElectricBorder from "./ElectricBorder";
 
 const skills = [
   // Frontend
@@ -11,6 +12,7 @@ const skills = [
   // Backend
   { name: "Node.js", level: 80, category: "backend" },
   { name: "Express", level: 75, category: "backend" },
+  { name: "Spring Boot", level: 70, category: "backend" },
   { name: "MongoDB", level: 70, category: "backend" },
   { name: "PostgreSQL", level: 65, category: "backend" },
   { name: "MySQL", level: 60, category: "backend" },
@@ -18,12 +20,30 @@ const skills = [
   // Tools
   { name: "Git/GitHub", level: 90, category: "tools" },
   { name: "VS Code", level: 95, category: "tools" },
+  { name: "Figma", level: 75, category: "tools" },
 ];
 
 const categories = ["all", "frontend", "backend", "tools"];
 
 export const SkillsSection = () => {
   const [activeCategory, setActiveCategory] = useState("all");
+  const [borderColor, setBorderColor] = useState("#ffffff");
+
+  useEffect(() => {
+    const updateColor = () => {
+      const isDark = document.documentElement.classList.contains("dark");
+      setBorderColor(isDark ? "#ffffff" : "#a78bfa");
+    };
+
+    updateColor();
+    const observer = new MutationObserver(updateColor);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   const filteredSkills = skills.filter(
     (skill) => activeCategory === "all" || skill.category === activeCategory
@@ -54,10 +74,15 @@ export const SkillsSection = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredSkills.map((skill, key) => (
-            <div
+            <ElectricBorder
               key={key}
-              className="bg-card p-6 rounded-lg shadow-xs card-hover"
+              color={borderColor}
+              speed={0.8}
+              chaos={0.4}
+              thickness={2}
+              style={{ borderRadius: 8 }}
             >
+              <div className="bg-card p-6 rounded-lg shadow-xs card-hover">
               <div className="text-left mb-4">
                 <h3 className="font-semibold text-lg"> {skill.name}</h3>
               </div>
@@ -74,9 +99,12 @@ export const SkillsSection = () => {
                 </span>
               </div>
             </div>
+            </ElectricBorder>
           ))}
         </div>
       </div>
     </section>
   );
 };
+
+export default SkillsSection;

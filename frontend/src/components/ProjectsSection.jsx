@@ -1,4 +1,6 @@
 import { ArrowRight, ExternalLink, Github } from "lucide-react";
+import ElectricBorder from "./ElectricBorder";
+import { useEffect, useState } from "react";
 
 const projects = [
   {
@@ -32,7 +34,23 @@ const projects = [
   },
 ];
 
-export const ProjectsSection = () => {
+export const ProjectsSection = () => {  const [borderColor, setBorderColor] = useState("#ffffff");
+
+  useEffect(() => {
+    const updateColor = () => {
+      const isDark = document.documentElement.classList.contains("dark");
+      setBorderColor(isDark ? "#ffffff" : "#a78bfa");
+    };
+
+    updateColor();
+    const observer = new MutationObserver(updateColor);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
   return (
     <section id="projects" className="py-24 px-4 relative">
       <div className="container mx-auto max-w-5xl">
@@ -47,33 +65,40 @@ export const ProjectsSection = () => {
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, key) => (
-            <div
-              key={key}
-              className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover"
+          {projects.map((project) => (
+            <ElectricBorder
+              key={project.id}
+              color={borderColor}
+              speed={0.8}
+              chaos={0.4}
+              thickness={2}
+              style={{ borderRadius: 8, height: '100%', minHeight: '450px' }}
             >
-              <div className="h-48 overflow-hidden">
+              <div className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover h-full flex flex-col">
+              <div className="h-48 overflow-hidden flex-shrink-0">
                 <img
                   src={project.image}
                   alt={project.title}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
               </div>
 
-              <div className="p-6">
+              <div className="p-6 flex flex-col flex-grow">
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tags.map((tag) => (
-                    <span className="px-2 py-1 text-xs font-medium border rounded-full bg-secondary text-secondary-foreground">
+                  {project.tags.map((tag, index) => (
+                    <span key={index} className="px-2 py-1 text-xs font-medium border rounded-full bg-secondary text-secondary-foreground">
                       {tag}
                     </span>
                   ))}
                 </div>
 
-                <h3 className="text-xl font-semibold mb-1"> {project.title}</h3>
-                <p className="text-muted-foreground text-sm mb-4">
+                <h3 className="text-xl font-semibold mb-2"> {project.title}</h3>
+                <p className="text-muted-foreground text-sm mb-4 text-justify leading-relaxed flex-grow">
                   {project.description}
                 </p>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center mt-auto">
                   <div className="flex space-x-3">
                     <a
                       href={project.demoUrl}
@@ -93,6 +118,7 @@ export const ProjectsSection = () => {
                 </div>
               </div>
             </div>
+            </ElectricBorder>
           ))}
         </div>
 
@@ -109,3 +135,5 @@ export const ProjectsSection = () => {
     </section>
   );
 };
+
+export default ProjectsSection;

@@ -1,4 +1,6 @@
 import { ExternalLink, ArrowRight } from "lucide-react";
+import ElectricBorder from "./ElectricBorder";
+import { useEffect, useState } from "react";
 
 const achievements = [
   {
@@ -28,7 +30,23 @@ const achievements = [
   },
 ];
 
-export const AchievementsSection = () => {
+export const AchievementsSection = () => {  const [borderColor, setBorderColor] = useState("#ffffff");
+
+  useEffect(() => {
+    const updateColor = () => {
+      const isDark = document.documentElement.classList.contains("dark");
+      setBorderColor(isDark ? "#ffffff" : "#a78bfa");
+    };
+
+    updateColor();
+    const observer = new MutationObserver(updateColor);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
   return (
     <section id="achievements" className="py-24 px-4 relative">
       <div className="container mx-auto max-w-5xl">
@@ -42,19 +60,26 @@ export const AchievementsSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {achievements.map((item, key) => (
-            <div
+            <ElectricBorder
               key={key}
-              className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover"
+              color={borderColor}
+              speed={0.8}
+              chaos={0.4}
+              thickness={2}
+              style={{ borderRadius: 8, height: '100%', minHeight: '450px' }}
             >
-              <div className="h-48 overflow-hidden">
+              <div className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover h-full flex flex-col">
+              <div className="h-48 overflow-hidden flex-shrink-0">
                 <img
                   src={item.image}
                   alt={item.title}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
               </div>
 
-              <div className="p-6">
+              <div className="p-6 flex flex-col flex-grow">
                 <div className="flex flex-wrap gap-2 mb-4">
                   {item.tags.map((tag, i) => (
                     <span
@@ -66,13 +91,14 @@ export const AchievementsSection = () => {
                   ))}
                 </div>
 
-                <h3 className="text-xl font-semibold mb-1">{item.title}</h3>
-                <p className="text-muted-foreground text-sm mb-4">
+                <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
+                <p className="text-muted-foreground text-sm text-justify leading-relaxed flex-grow">
                   {item.description}
                 </p>
 
               </div>
             </div>
+            </ElectricBorder>
           ))}
         </div>
 
@@ -89,3 +115,5 @@ export const AchievementsSection = () => {
     </section>
   );
 };
+
+export default AchievementsSection;

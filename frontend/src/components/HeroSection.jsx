@@ -1,5 +1,6 @@
 import { ArrowDown } from "lucide-react";
 import viteImg from '../assets/vite.JPG'; // Adjust the path as needed
+import SplitText from "./SplitText";
 
 export const HeroSection = () => {
   return (
@@ -14,15 +15,20 @@ export const HeroSection = () => {
           {/* Left: Text Section */}
           <div className="flex-1 text-center md:text-left space-y-6">
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-              <span className="opacity-0 animate-fade-in"> Hi, I'm</span>
-              <span className="text-primary opacity-0 animate-fade-in-delay-1">
-                {" "}
-                Bharanidharan
-              </span>
-              <span className="text-gradient ml-2 opacity-0 animate-fade-in-delay-2">
-                {" "}
-                Kumaresan
-              </span>
+              <SplitText
+                text="Hi, I'm Bharanidharan Kumaresan"
+                className="text-4xl md:text-6xl font-bold"
+                delay={50}
+                duration={0.5}
+                ease="power3.out"
+                splitType="chars"
+                from={{ opacity: 0, y: 20 }}
+                to={{ opacity: 1, y: 0 }}
+                threshold={0.5}
+                rootMargin="0px"
+                textAlign="left"
+                tag="span"
+              />
             </h1>
 
             <p className="text-lg md:text-xl text-muted-foreground opacity-0 animate-fade-in-delay-3">
@@ -43,7 +49,9 @@ export const HeroSection = () => {
             <img
               src={viteImg}  
               alt="Bharanidharan Kumaresan"
-              loading="lazy" // <-- Lazy loading added here
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
               className="w-40 h-40 md:w-64 md:h-64 rounded-full shadow-lg border-4 border-primary opacity-0 animate-fade-in-delay-2"
             />
           </div>

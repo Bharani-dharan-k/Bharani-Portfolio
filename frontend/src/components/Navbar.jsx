@@ -1,14 +1,15 @@
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import GooeyNav from "./GooeyNav";
 
 const navItems = [
-  { name: "Home", href: "#hero" },
-  { name: "About", href: "#about" },
-  { name: "Skills", href: "#skills" },
-  { name: "Achievements", href: "#achievements" },
-  { name: "Projects", href: "#projects" },
-  { name: "Contact", href: "#contact" },
+  { label: "Home", href: "#hero" },
+  { label: "About", href: "#about" },
+  { label: "Skills", href: "#skills" },
+  { label: "Achievements", href: "#achievements" },
+  { label: "Projects", href: "#projects" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export const Navbar = () => {
@@ -30,28 +31,29 @@ export const Navbar = () => {
         isScrolled ? "py-3 bg-background/80 backdrop-blur-md shadow-xs" : "py-5"
       )}
     >
-      <div className="container flex items-center justify-between">
+      <div className="container flex items-center justify-between gap-2 sm:gap-4">
         <a
-          className="text-xl font-bold text-primary flex items-center"
+          className="text-base sm:text-lg md:text-xl font-bold text-primary flex items-center flex-shrink-0"
           href="#hero"
         >
           <span className="relative z-10">
-            <span className="text-glow text-foreground"> Bharanidharan </span>{" "}
-            Portfolio
+            <span className="text-glow text-foreground">Bharanidharan</span>
+            <span className="hidden sm:inline"> Portfolio</span>
           </span>
         </a>
 
         {/* desktop nav */}
-        <div className="hidden md:flex space-x-8">
-          {navItems.map((item, key) => (
-            <a
-              key={key}
-              href={item.href}
-              className="text-foreground/80 hover:text-primary transition-colors duration-300"
-            >
-              {item.name}
-            </a>
-          ))}
+        <div className="hidden md:flex">
+          <GooeyNav
+            items={navItems}
+            particleCount={15}
+            particleDistances={[90, 10]}
+            particleR={100}
+            initialActiveIndex={0}
+            animationTime={600}
+            timeVariance={300}
+            colors={[1, 2, 3, 1, 2, 3, 1, 4]}
+          />
         </div>
 
         {/* mobile nav */}
@@ -81,7 +83,7 @@ export const Navbar = () => {
                 className="text-foreground/80 hover:text-primary transition-colors duration-300"
                 onClick={() => setIsMenuOpen(false)}
               >
-                {item.name}
+                {item.label}
               </a>
             ))}
           </div>
