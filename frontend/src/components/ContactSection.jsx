@@ -21,33 +21,38 @@ export const ContactSection = () => {
   setIsSubmitting(true);
 
   const formData = new FormData(e.target);
+  
+  // Send directly to Web3Forms (no backend needed)
   const data = {
+    access_key: "YOUR_WEB3FORMS_ACCESS_KEY", // Replace with your actual key
     name: formData.get("name"),
     email: formData.get("email"),
     message: formData.get("message"),
+    subject: "New Contact Message from Portfolio"
   };
 
   try {
-    const response = await fetch("https://bharani-portfolio.onrender.com/api/contact", {
+    const response = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Accept": "application/json"
       },
       body: JSON.stringify(data),
     });
 
     const result = await response.json();
 
-    if (!response.ok) {
+    if (result.success) {
+      toast({
+        title: "Message sent!",
+        description: "Thank you for your message. I'll get back to you soon!",
+      });
+      
+      e.target.reset();
+    } else {
       throw new Error(result.message || "Failed to send message");
     }
-
-    toast({
-      title: "Message sent!",
-      description: result.message || "Thank you for your message.",
-    });
-    
-    e.target.reset();
   } catch (error) {
     console.error("Contact form error:", error);
     toast({
