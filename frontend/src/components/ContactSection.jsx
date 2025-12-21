@@ -38,14 +38,22 @@ export const ContactSection = () => {
 
     const result = await response.json();
 
+    if (!response.ok) {
+      throw new Error(result.message || "Failed to send message");
+    }
+
     toast({
       title: "Message sent!",
       description: result.message || "Thank you for your message.",
     });
+    
+    e.target.reset();
   } catch (error) {
+    console.error("Contact form error:", error);
     toast({
       title: "Failed to send",
-      description: "Something went wrong. Please try again.",
+      description: error.message || "Something went wrong. Please try again.",
+      variant: "destructive",
     });
   } finally {
     setIsSubmitting(false);
