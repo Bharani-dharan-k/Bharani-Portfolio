@@ -19,6 +19,11 @@ app.use((req, res, next) => {
   next();
 });
 
+// Health check endpoint
+app.get("/", (req, res) => {
+  res.json({ message: "Portfolio Backend API is running!" });
+});
+
 const contactRoutes = require("./routes/contact");
 app.use("/api/contact", contactRoutes);
 
